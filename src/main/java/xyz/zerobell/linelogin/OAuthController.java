@@ -44,4 +44,20 @@ public class OAuthController {
     public List<AccessToken> showTokenList() {
         return tokenList;
     }
+
+    @GetMapping("view/{id}")
+    public String view(@PathVariable long id) {
+        AccessToken token = tokenList.get((int)id);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + token.getAccessToken());
+
+        HttpEntity<String> request = new HttpEntity<>("", headers);
+
+        Profile profile = restTemplate.postForObject("https://api.line.me/v2/profile", request, Profile.class);
+
+        return "<h1>" + profile.getDisplayName() + "</h1><img src=\"" + profile.getPictureUrl() + "\">";
+
+
+    }
 }
