@@ -27,7 +27,7 @@ public class OAuthController {
 
         parameters.add("grant_type", "authorization_code");
         parameters.add("code", code);
-        parameters.add("redirect_uri", "https://lyj-line-login-demo.herokuapp.com/tokenList");
+        parameters.add("redirect_uri", "https://lyj-line-login-demo.herokuapp.com/auth");
         parameters.add("client_id", clientId);
         parameters.add("client_secret", clientSecret);
 
