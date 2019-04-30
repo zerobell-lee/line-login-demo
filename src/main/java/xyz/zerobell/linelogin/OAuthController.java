@@ -6,6 +6,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,7 +21,7 @@ public class OAuthController {
     private List<AccessToken> tokenList = new ArrayList<>();
 
     @GetMapping("auth")
-    public void getAuth(@PathVariable String code, @PathVariable String state) {
+    public void getAuth(@RequestParam String code, @RequestParam String state) {
         RestTemplate restTemplate = new RestTemplate();
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 
