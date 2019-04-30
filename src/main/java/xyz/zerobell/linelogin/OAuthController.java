@@ -16,8 +16,8 @@ import java.util.List;
 @RestController
 public class OAuthController {
 
-    private final String clientId = "1569797740";
-    private final String clientSecret = "72c611a7804a3a3c5e838b656dbdbe94";
+    private final String clientId = System.getenv("clientId");
+    private final String clientSecret = System.getenv("clientSecret");
     private List<AccessToken> tokenList = new ArrayList<>();
 
     @GetMapping("auth")
@@ -46,7 +46,7 @@ public class OAuthController {
     }
 
     @GetMapping("view/{id}")
-    public String view(@PathVariable long id) {
+    public Profile view(@PathVariable long id) {
         AccessToken token = tokenList.get((int)id);
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -56,7 +56,7 @@ public class OAuthController {
 
         Profile profile = restTemplate.postForObject("https://api.line.me/v2/profile", request, Profile.class);
 
-        return "<h1>" + profile.getDisplayName() + "</h1><img src=\"" + profile.getPictureUrl() + "\">";
+        return profile;
 
 
     }
